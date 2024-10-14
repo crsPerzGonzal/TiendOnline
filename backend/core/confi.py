@@ -3,7 +3,7 @@ import mysql.connector
 mysql_confi = {
     'host': 'localhost',
     'user':'root',
-    'database':'api',
+    'database':'tiendaonline',
     'auth_plugin':'mysql_native'
 }
 connetion = mysql.connector.connect(**mysql_confi)
