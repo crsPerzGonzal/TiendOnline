@@ -9,7 +9,7 @@ const ProductItem = ({ product }) => {
 
   return (
     <div className="product-item">
-      <img src={product.image} alt={product.name} />
+      <img src={product.image_url} alt={product.name} />
       <h3>{product.name}</h3>
       <p>${product.price.toFixed(2)}</p>
       <p>{product.description}</p>
