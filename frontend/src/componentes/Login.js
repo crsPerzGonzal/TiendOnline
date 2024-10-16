@@ -4,16 +4,24 @@ import axios from "axios";
 import "./Auth.css"; // Crea un archivo CSS para estilos específicos
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [username, setUsername] = useState("");
+  const [password_hash, setPasswordHash] = useState("");
+  const [userNameDisplay, setUserNameDisplay] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     // Aquí agregarás la lógica para autenticar al usuario
     try {
-      const response = await axios.post("/api/login", { email, password });
-      console.log(response.data);
+      const response = await axios.post("http://127.0.0.1:8000/users", { username, password_hash });
+      if (response.data) {
+        setUserNameDisplay(response.data.username);
+      } else {
+        alert("error de insertar datos")
+      }
+
       // Manejar el inicio de sesión exitoso (por ejemplo, guardar el token)
+    
     } catch (error) {
       console.error("Error al iniciar sesión", error);
     }
@@ -21,14 +29,17 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <h2>Iniciar Sesión</h2>
+    <h2>{userNameDisplay ? `Bienvenido, ${userNameDisplay}!` : "Iniciar Sesión"}</h2> {/* Cambia el encabezado aquí */}
+    {userNameDisplay ? ( // Condicional para mostrar el formulario o nada
+      null // No se muestra el formulario si el usuario ha iniciado sesión
+    ) : (
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label>Correo Electrónico</label>
+          <label>Usuario</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
@@ -36,15 +47,17 @@ const Login = () => {
           <label>Contraseña</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={password_hash}
+            onChange={(e) => setPasswordHash(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Ingresar</button>
+        <button id="btnEntrar" type="submit">Ingresar</button>
       </form>
-    </div>
-  );
+    )}
+  </div>
+);
 };
+
 
 export default Login;
