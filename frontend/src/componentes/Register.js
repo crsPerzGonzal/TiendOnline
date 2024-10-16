@@ -4,35 +4,44 @@ import axios from "axios";
 import "./Auth.css"; // Reutiliza estilos de Login
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password_hash, setPassword] = useState("");
+  const [userRegistreLook, setuserRegistreLook] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     // Aquí agregarás la lógica para registrar al usuario
     try {
-      const response = await axios.post("/api/register", {
-        name,
+      const response = await axios.post("http://127.0.0.1:8000/insert", {
+        username,
         email,
-        password,
+        password_hash,
       });
       console.log(response.data);
-      // Manejar el registro exitoso (por ejemplo, redirigir al login)
-    } catch (error) {
+      if (response.data)
+        setuserRegistreLook(response.data.username);
+      else {
+        alert("error de insertar datos") 
+      }
+
+      }catch (error) {
       console.error("Error al registrar", error);
     }
   };
 
   return (
     <div className="auth-container">
-      <h2>Registrarse</h2>
+    <h2>{userRegistreLook ? `registro exitoso, ${userRegistreLook}!`: "iniciar seccion"}</h2> {}
+      {userRegistreLook ? (
+        null
+      ) : (
       <form onSubmit={handleRegister}>
         <div className="form-group">
           <label>Nombre</label>
           <input
             type="text"
-            value={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -50,13 +59,14 @@ const Register = () => {
           <label>Contraseña</label>
           <input
             type="password"
-            value={password}
+            value={password_hash}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
         <button type="submit">Registrar</button>
       </form>
+      )}
     </div>
   );
 };
