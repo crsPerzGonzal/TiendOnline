@@ -8,11 +8,12 @@ const ProductList = () => {
 
   useEffect(() => {
     // Simulando la obtención de productos
-    const fetchProducts = async () => {
+    const fetchProducts = async () => { 
       try {
         // Reemplaza con tu ruta de API real
-        const response = await axios.get("/products");
+        const response = await axios.get("http://127.0.0.1:8000/productos");
         setProducts(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error("Error al obtener productos", error);
       }
@@ -22,76 +23,6 @@ const ProductList = () => {
   }, []);
 
   // Si no tienes una API lista, puedes simular los productos:
-
-  useEffect(() => {
-    const dummyProducts = [
-      {
-        id: 1,
-        name: "Producto 1",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 2",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 3",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 4",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 5",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 6",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 7",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 8",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      {
-        id: 1,
-        name: "Producto 9",
-        price: 29.99,
-        description: "Descripción del Producto 1",
-        image: "product1.jpg",
-      },
-      // Añade hasta 9 productos
-    ];
-    setProducts(dummyProducts);
-  }, []);
 
   return (
     <div className="product-list">
