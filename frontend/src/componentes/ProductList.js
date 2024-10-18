@@ -12,8 +12,13 @@ const ProductList = () => {
       try {
         // Reemplaza con tu ruta de API real
         const response = await axios.get("http://127.0.0.1:8000/productos");
-        setProducts(response.data);
-        console.log(response.data)
+        if (response.data) {
+          setProducts(response.data); 
+          console.log("producto mostrado" + response.data);
+        } else {
+          alert("error de insertar datos")
+        }
+
       } catch (error) {
         console.error("Error al obtener productos", error);
       }
@@ -30,7 +35,7 @@ const ProductList = () => {
         <p>Cargando productos...</p>
       ) : (
         products.map((product) => (
-          <ProductItem key={product.id} product={product} />
+          <ProductItem key={product.product_id} product={product} />
         ))
       )}
     </div>
