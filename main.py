@@ -37,7 +37,6 @@ async def login(user: User):
     finally:
         cursor.close()
 
-
 @app.post("/insert")
 async def new_cuent(resgistro: regiUser):
     connection = get_connetion()
