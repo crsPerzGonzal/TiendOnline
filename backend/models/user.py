@@ -15,3 +15,4 @@ class product(BaseModel):
       price: float
       image_url: str
       description: str
+
