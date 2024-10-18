@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import mysql.connector
 from backend.core.confi import get_connetion
-from backend.models.user import User, regiUser,product
+from backend.models.user import User, regiUser,lookProduct
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -36,7 +36,7 @@ async def login(user: User):
         raise HTTPException(status_code=500, detail=f'Error al conectar con MySQL: {err}')
     finally:
         cursor.close()
-        connection.close()
+
 
 @app.post("/insert")
 async def new_cuent(resgistro: regiUser):
@@ -56,7 +56,6 @@ async def new_cuent(resgistro: regiUser):
         raise HTTPException(status_code=500, detail=f'Error al conectar con MySQL: {err}')
     finally:
         cursor.close()
-        connection.close()
 
 
 @app.get("/productos")  # Nota el plural aquí
@@ -74,7 +73,6 @@ async def get_productos():
     finally:
         cursor.close() # Este se queda... 
         #connection.close() esto no debe estar en este lugar, solo se termina el cursor. 
-
 
 
 
