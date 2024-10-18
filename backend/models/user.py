@@ -10,7 +10,7 @@ class regiUser(BaseModel):
      password_hash: str
      
 class product(BaseModel):
-      id: str
+      product_id: int
       name: str
       price: float
       image_url: str
