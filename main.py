@@ -8,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,7 +63,7 @@ async def new_cuent(resgistro: regiUser):
 async def get_productos():
     connection = get_connetion()
     cursor = connection.cursor(dictionary=True)
-    query = "SELECT name, price, image_url, description FROM products"
+    query = "SELECT product_id , name, price, image_url, description FROM products"
 
     try:
         cursor.execute(query)
@@ -72,5 +72,9 @@ async def get_productos():
     except mysql.connector.Error as err:
         raise HTTPException(status_code=500, detail=f'Error al conectar con MySQL: {err}')
     finally:
-        cursor.close()
-        connection.close()
+        cursor.close() # Este se queda... 
+        #connection.close() esto no debe estar en este lugar, solo se termina el cursor. 
+
+
+
+
