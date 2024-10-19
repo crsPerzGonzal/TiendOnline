@@ -95,3 +95,5 @@ async def create_order(order: OrderResponse):
         raise HTTPException(status_code=500, detail=f'Error inesperado: {e}')
     finally:
         cursor.close()
+
+
